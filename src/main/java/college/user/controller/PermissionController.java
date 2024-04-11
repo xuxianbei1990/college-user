@@ -25,8 +25,8 @@ import static college.user.vo.CommonResult.success;
  * @author 芋道源码
  */
 @Tag(name = "管理后台 - 权限")
-@RestController
-@RequestMapping("/system/permission")
+//@RestController
+//@RequestMapping("/system/permission")
 public class PermissionController {
 
     @Resource

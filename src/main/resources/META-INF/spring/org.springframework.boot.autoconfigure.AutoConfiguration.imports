@@ -1,1 +1,2 @@
 college.user.config.MySecurityAutoConfiguration
+college.user.config.MyWebSecurityConfigurerAdapter

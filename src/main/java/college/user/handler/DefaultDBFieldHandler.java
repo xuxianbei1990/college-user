@@ -1,4 +1,4 @@
-package college.user.config;
+package college.user.handler;
 
 
 import college.user.dao.entity.BaseDO;

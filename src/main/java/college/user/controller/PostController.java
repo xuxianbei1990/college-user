@@ -29,8 +29,8 @@ import static college.user.vo.CommonResult.success;
 
 
 @Tag(name = "管理后台 - 岗位")
-@RestController
-@RequestMapping("/system/post")
+//@RestController
+//@RequestMapping("/system/post")
 @Validated
 public class PostController {
 

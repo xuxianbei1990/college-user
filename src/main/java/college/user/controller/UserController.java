@@ -26,8 +26,8 @@ import static college.user.vo.CommonResult.success;
 
 
 @Tag(name = "管理后台 - 用户")
-@RestController
-@RequestMapping("/system/user")
+//@RestController
+//@RequestMapping("/system/user")
 @Validated
 public class UserController {
 
