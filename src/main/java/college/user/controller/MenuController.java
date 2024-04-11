@@ -24,8 +24,8 @@ import static college.user.vo.CommonResult.success;
 
 
 @Tag(name = "管理后台 - 菜单")
-//@RestController
-//@RequestMapping("/system/menu")
+@RestController
+@RequestMapping("/system/menu")
 @Validated
 public class MenuController {
 

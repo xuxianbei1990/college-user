@@ -1,8 +1,12 @@
 package college.user.config;
 
+import college.user.filter.TokenAuthenticationFilter;
 import college.user.handler.AccessDeniedHandlerImpl;
 import college.user.handler.AuthenticationEntryPointImpl;
+import college.user.handler.GlobalExceptionHandler;
+import college.user.service.OAuth2TokenService;
 import jakarta.annotation.Resource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -53,6 +57,13 @@ public class MySecurityAutoConfiguration {
         return new BCryptPasswordEncoder(securityProperties.getPasswordEncoderLength());
     }
 
+    @Autowired
+    private OAuth2TokenService oAuth2TokenService;
 
+    @Bean
+    public TokenAuthenticationFilter authenticationTokenFilter(GlobalExceptionHandler globalExceptionHandler
+    ) {
+        return new TokenAuthenticationFilter(securityProperties, globalExceptionHandler, oAuth2TokenService);
+    }
 
 }

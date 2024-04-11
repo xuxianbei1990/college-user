@@ -38,11 +38,6 @@ public class AdminAuthServiceImpl implements AdminAuthService {
     @Resource
     private OAuth2TokenService oauth2TokenService;
 
-    /**
-     * 验证码的开关，默认为 true
-     */
-    @Value("${yudao.captcha.enable:true}")
-    private Boolean captchaEnable;
 
     @Override
     public AdminUserDO authenticate(String username, String password) {

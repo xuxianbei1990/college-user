@@ -3,10 +3,14 @@ package college.user.util;
 import cn.hutool.core.util.StrUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.lang.Nullable;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.util.StringUtils;
+
+import java.util.Collections;
 
 /**
  * 安全服务工具类
@@ -85,6 +89,22 @@ public class SecurityFrameworkUtils {
         return loginUser != null ? loginUser.getId() : null;
     }
 
+    public static void setLoginUser(LoginUser loginUser, HttpServletRequest request) {
+        // 创建 Authentication，并设置到上下文
+        Authentication authentication = buildAuthentication(loginUser, request);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
 
+        // 额外设置到 request 中，用于 ApiAccessLogFilter 可以获取到用户编号；
+        // 原因是，Spring Security 的 Filter 在 ApiAccessLogFilter 后面，在它记录访问日志时，线上上下文已经没有用户编号等信息
+        WebFrameworkUtils.setLoginUserId(request, loginUser.getId());
+        WebFrameworkUtils.setLoginUserType(request, loginUser.getUserType());
+    }
 
+    private static Authentication buildAuthentication(LoginUser loginUser, HttpServletRequest request) {
+        // 创建 UsernamePasswordAuthenticationToken 对象
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+                loginUser, null, Collections.emptyList());
+        authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+        return authenticationToken;
+    }
 }

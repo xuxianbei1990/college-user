@@ -3,6 +3,8 @@ package college.user.service;
 
 
 import college.user.dao.entity.OAuth2AccessTokenDO;
+import college.user.dto.OAuth2AccessTokenCheckRespDTO;
+import college.user.vo.CommonResult;
 
 import java.util.List;
 
@@ -62,6 +64,8 @@ public interface OAuth2TokenService {
      * @return 访问令牌的信息
      */
     OAuth2AccessTokenDO removeAccessToken(String accessToken);
+
+    CommonResult<OAuth2AccessTokenCheckRespDTO> checkAccessToken(String accessToken);
 
 
 

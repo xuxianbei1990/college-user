@@ -1,6 +1,7 @@
 package college.user.config;
 
 import cn.hutool.core.collection.CollUtil;
+import college.user.filter.TokenAuthenticationFilter;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import jakarta.annotation.Resource;
@@ -19,6 +20,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
@@ -41,6 +43,9 @@ public class MyWebSecurityConfigurerAdapter {
 
     @Resource
     private AuthenticationEntryPoint authenticationEntryPoint;
+
+    @Resource
+    private TokenAuthenticationFilter authenticationTokenFilter;
 
     @Resource
     private SecurityProperties securityProperties;
@@ -110,6 +115,7 @@ public class MyWebSecurityConfigurerAdapter {
 //                .authorizeHttpRequests(c -> authorizeRequestsCustomizers.forEach(customizer -> customizer.customize(c)))
                 // ③：兜底规则，必须认证
                 .authorizeHttpRequests(c -> c.anyRequest().authenticated());
+        httpSecurity.addFilterBefore(authenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
         return httpSecurity.build();
     }
 

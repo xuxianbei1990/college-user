@@ -201,3 +201,17 @@ CREATE TABLE `system_user_role` (
                                     `tenant_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '租户编号',
                                     PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='用户和角色关联表';
+
+INSERT INTO `system_users`(`id`, `username`, `password`, `nickname`, `remark`, `dept_id`, `post_ids`, `email`, `mobile`,
+                           `sex`, `avatar`, `status`, `login_ip`, `login_date`, `creator`, `create_time`, `updater`,
+                           `update_time`, `deleted`, `tenant_id`) VALUES (1, 'admin', '$2a$10$mRMIYLDtRHlf6.9ipiqH1.Z.bh/R9dO9d5iHiGYPigi6r5KOoR2Wm',
+'芋道源码', '管理员', 103, '[1]', 'aoteman@126.com', '18818260277', 2,
+'http://127.0.0.1:48080/admin-api/infra/file/4/get/37e56010ecbee472cdd821ac4b608e151e62a74d9633f15d085aee026eedeb60.png', 0,
+'60.12.139.34', '2024-04-11 19:44:50', 'admin', '2021-01-05 17:03:47', NULL, '2024-04-11 19:44:50', b'0', 1);
+
+INSERT INTO `test_codegen`.`system_oauth2_client`(`id`, `client_id`, `secret`, `name`, `logo`, `description`, `status`,
+  `access_token_validity_seconds`, `refresh_token_validity_seconds`, `redirect_uris`, `authorized_grant_types`, `scopes`,
+   `auto_approve_scopes`, `authorities`, `resource_ids`, `additional_information`, `creator`, `create_time`, `updater`,
+    `update_time`, `deleted`) VALUES (1, 'default', 'admin123', '芋道源码', 'http://test.yudao.iocoder.cn/a5e2e244368878a366b516805a4aabf1.png',
+  '我是描述', 0, 1800, 43200, '[\"https://www.iocoder.cn\",\"https://doc.iocoder.cn\"]', '[\"password\",\"authorization_code\",\"implicit\",\"refresh_token\"]', '[\"user.read\",\"user.write\"]', '[]', '[\"user.read\",\"user.write\"]', '[]', '{}', '1', '2022-05-11 21:47:12', '1', '2024-04-09 12:15:10', b'0');
+

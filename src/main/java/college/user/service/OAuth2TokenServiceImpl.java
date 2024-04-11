@@ -9,8 +9,11 @@ import college.user.dao.entity.OAuth2ClientDO;
 import college.user.dao.entity.OAuth2RefreshTokenDO;
 import college.user.dao.mapper.OAuth2AccessTokenMapper;
 import college.user.dao.mapper.OAuth2RefreshTokenMapper;
+import college.user.dto.OAuth2AccessTokenCheckRespDTO;
 import college.user.exception.enums.GlobalErrorCodeConstants;
+import college.user.util.BeanUtils;
 import college.user.util.DateUtils;
+import college.user.vo.CommonResult;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +23,7 @@ import java.util.List;
 
 import static college.user.util.CollectionUtils.convertSet;
 import static college.user.util.ServiceExceptionUtil.exception0;
+import static college.user.vo.CommonResult.success;
 
 
 /**
@@ -133,6 +137,17 @@ public class OAuth2TokenServiceImpl implements OAuth2TokenService {
 
     private static String generateRefreshToken() {
         return IdUtil.fastSimpleUUID();
+    }
+
+    public CommonResult<OAuth2AccessTokenCheckRespDTO> checkAccessToken(String accessToken) {
+        OAuth2AccessTokenDO accessTokenDO = getAccessToken(accessToken);
+        if (accessTokenDO == null) {
+            throw exception0(GlobalErrorCodeConstants.UNAUTHORIZED.getCode(), "访问令牌不存在");
+        }
+        if (DateUtils.isExpired(accessTokenDO.getExpiresTime())) {
+            throw exception0(GlobalErrorCodeConstants.UNAUTHORIZED.getCode(), "访问令牌已过期");
+        }
+        return success(BeanUtils.toBean(accessTokenDO, OAuth2AccessTokenCheckRespDTO.class));
     }
 
 }

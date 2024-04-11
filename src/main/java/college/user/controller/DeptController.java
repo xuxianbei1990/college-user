@@ -23,8 +23,8 @@ import static college.user.vo.CommonResult.success;
 
 
 @Tag(name = "管理后台 - 部门")
-//@RestController
-//@RequestMapping("/system/dept")
+@RestController
+@RequestMapping("/system/dept")
 @Validated
 public class DeptController {
 
