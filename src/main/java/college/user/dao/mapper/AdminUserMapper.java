@@ -1,7 +1,7 @@
 package college.user.dao.mapper;
 
 
-import college.user.auth.vo.user.UserPageReqVO;
+import college.user.controller.vo.user.UserPageReqVO;
 import college.user.dao.entity.AdminUserDO;
 import college.user.vo.PageResult;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;

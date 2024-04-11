@@ -19,8 +19,15 @@
 		<mybatis.version>3.5.5</mybatis.version>
 		<org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
 		<guava.version>33.0.0-jre</guava.version>
+		<druid.version>1.2.21</druid.version>
 	</properties>
 	<dependencies>
+
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid-spring-boot-3-starter</artifactId>
+			<version>${druid.version}</version>
+		</dependency>
 
 		<dependency>
 			<groupId>com.alibaba</groupId>

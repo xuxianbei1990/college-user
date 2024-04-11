@@ -1,8 +1,8 @@
 package college.user.service;
 
 
-import college.user.auth.vo.post.PostPageReqVO;
-import college.user.auth.vo.post.PostSaveReqVO;
+import college.user.controller.vo.post.PostPageReqVO;
+import college.user.controller.vo.post.PostSaveReqVO;
 import college.user.dao.entity.PostDO;
 import college.user.vo.PageResult;
 import org.springframework.lang.Nullable;

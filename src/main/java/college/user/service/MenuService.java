@@ -2,8 +2,8 @@ package college.user.service;
 
 
 
-import college.user.auth.vo.menu.MenuListReqVO;
-import college.user.auth.vo.menu.MenuSaveVO;
+import college.user.controller.vo.menu.MenuListReqVO;
+import college.user.controller.vo.menu.MenuSaveVO;
 import college.user.dao.entity.MenuDO;
 
 import java.util.Collection;

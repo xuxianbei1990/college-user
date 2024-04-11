@@ -1,12 +1,10 @@
 package college.user.dao.mapper;
 
 import college.user.dao.entity.OAuth2AccessTokenDO;
-import college.user.vo.PageResult;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.apache.ibatis.annotations.Mapper;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Mapper

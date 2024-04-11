@@ -1,7 +1,7 @@
 package college.user.service;
 
-import college.user.auth.vo.auth.AuthLoginReqVO;
-import college.user.auth.vo.auth.AuthLoginRespVO;
+import college.user.controller.vo.auth.AuthLoginReqVO;
+import college.user.controller.vo.auth.AuthLoginRespVO;
 import college.user.constants.OAuth2ClientConstants;
 import college.user.dao.entity.AdminUserDO;
 import college.user.dao.entity.OAuth2AccessTokenDO;

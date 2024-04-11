@@ -1,7 +1,7 @@
 package college.user.util;
 
 
-import college.user.auth.vo.user.UserRespVO;
+import college.user.controller.vo.user.UserRespVO;
 import college.user.dao.entity.AdminUserDO;
 import college.user.dao.entity.DeptDO;
 import org.mapstruct.Mapper;

@@ -2,8 +2,8 @@ package college.user.util;
 
 import cn.hutool.core.collection.CollUtil;
 
-import college.user.auth.vo.auth.AuthLoginRespVO;
-import college.user.auth.vo.auth.AuthPermissionInfoRespVO;
+import college.user.controller.vo.auth.AuthLoginRespVO;
+import college.user.controller.vo.auth.AuthPermissionInfoRespVO;
 import college.user.dao.entity.AdminUserDO;
 import college.user.dao.entity.MenuDO;
 import college.user.dao.entity.OAuth2AccessTokenDO;

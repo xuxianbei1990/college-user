@@ -1,6 +1,6 @@
 package college.user.dao.mapper;
 
-import college.user.auth.vo.menu.MenuListReqVO;
+import college.user.controller.vo.menu.MenuListReqVO;
 import college.user.dao.entity.MenuDO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;

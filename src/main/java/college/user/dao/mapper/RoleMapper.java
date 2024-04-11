@@ -1,7 +1,7 @@
 package college.user.dao.mapper;
 
 
-import college.user.auth.vo.role.RolePageReqVO;
+import college.user.controller.vo.role.RolePageReqVO;
 import college.user.dao.entity.RoleDO;
 import college.user.vo.PageResult;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -10,10 +10,6 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.lang.Nullable;
-
-import java.util.Collection;
-import java.util.List;
 
 @Mapper
 public interface RoleMapper extends BaseMapper<RoleDO> {

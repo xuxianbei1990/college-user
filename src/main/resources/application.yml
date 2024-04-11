@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: user
+  datasource:
+    druid:
+      url: jdbc:mysql://127.0.0.200:3306/test_codegen?useUnicode=true&characterEncoding=utf-8&useSSL=false
+      username: 0
+      password: 0
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      testWhileIdle: true
+      validationQuery: select 1
+      testOnBorrow: true
+      validationInterval: 1000
+      timeBetweenEvictionRunsMillis: 3600000
+      minEvictableIdleTimeMillis: 18000000
+      min-idle: 10
+      initial-size: 10
+      max-active: 10
+      testOnConnect: true
+      initSQL: select 1
+college:
+  security:
+    token-header: Authorization

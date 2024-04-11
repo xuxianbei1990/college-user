@@ -1,8 +1,8 @@
 package college.user.service;
 
 
-import college.user.auth.vo.role.RolePageReqVO;
-import college.user.auth.vo.role.RoleSaveReqVO;
+import college.user.controller.vo.role.RolePageReqVO;
+import college.user.controller.vo.role.RoleSaveReqVO;
 import college.user.dao.entity.RoleDO;
 import college.user.vo.PageResult;
 import jakarta.validation.Valid;

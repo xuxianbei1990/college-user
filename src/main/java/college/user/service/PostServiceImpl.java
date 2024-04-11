@@ -2,8 +2,8 @@ package college.user.service;
 
 import cn.hutool.core.collection.CollUtil;
 
-import college.user.auth.vo.post.PostPageReqVO;
-import college.user.auth.vo.post.PostSaveReqVO;
+import college.user.controller.vo.post.PostPageReqVO;
+import college.user.controller.vo.post.PostSaveReqVO;
 import college.user.dao.entity.PostDO;
 import college.user.dao.mapper.PostMapper;
 import college.user.enums.CommonStatusEnum;

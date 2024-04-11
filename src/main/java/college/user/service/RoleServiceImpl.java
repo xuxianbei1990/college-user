@@ -1,11 +1,10 @@
 package college.user.service;
 
-import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.extra.spring.SpringUtil;
-import college.user.auth.vo.role.RolePageReqVO;
-import college.user.auth.vo.role.RoleSaveReqVO;
+import college.user.controller.vo.role.RolePageReqVO;
+import college.user.controller.vo.role.RoleSaveReqVO;
 import college.user.dao.entity.RoleDO;
 import college.user.dao.mapper.RoleMapper;
 import college.user.enums.CommonStatusEnum;
@@ -18,8 +17,6 @@ import college.user.vo.PageResult;
 import com.google.common.annotations.VisibleForTesting;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;

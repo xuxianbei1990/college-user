@@ -1,10 +1,9 @@
 package college.user.dao.mapper;
 
 
-import college.user.auth.vo.post.PostPageReqVO;
+import college.user.controller.vo.post.PostPageReqVO;
 import college.user.dao.entity.PostDO;
 import college.user.vo.PageResult;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;

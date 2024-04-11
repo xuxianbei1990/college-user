@@ -74,6 +74,7 @@ public class OAuth2ClientDO extends BaseDO {
      *
      * 枚举 {@link OAuth2GrantTypeEnum}
      */
+    @TableField(typeHandler = JacksonTypeHandler.class)
     private List<String> authorizedGrantTypes;
     /**
      * 授权范围

@@ -1,7 +1,7 @@
 package college.user.type;
 
 
-import com.alibaba.fastjson.JSONObject;
+import college.user.util.JsonUtils;
 import com.baomidou.mybatisplus.extension.handlers.AbstractJsonTypeHandler;
 import com.fasterxml.jackson.core.type.TypeReference;
 
@@ -21,12 +21,12 @@ public class JsonLongSetTypeHandler extends AbstractJsonTypeHandler<Object> {
 
     @Override
     protected Object parse(String json) {
-        return JSONObject.parseObject(json, Long.class);
+        return JsonUtils.parseObject(json, TYPE_REFERENCE);
     }
 
     @Override
     protected String toJson(Object obj) {
-        return JSONObject.toJSONString(obj);
+        return JsonUtils.toJsonString(obj);
     }
 
 }

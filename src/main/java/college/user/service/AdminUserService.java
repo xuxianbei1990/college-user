@@ -1,7 +1,7 @@
 package college.user.service;
 
-import college.user.auth.vo.user.UserPageReqVO;
-import college.user.auth.vo.user.UserSaveReqVO;
+import college.user.controller.vo.user.UserPageReqVO;
+import college.user.controller.vo.user.UserSaveReqVO;
 import college.user.dao.entity.AdminUserDO;
 import college.user.vo.PageResult;
 import jakarta.validation.Valid;
