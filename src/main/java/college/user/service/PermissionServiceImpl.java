@@ -84,6 +84,48 @@ public class PermissionServiceImpl implements PermissionService {
     // ========== 角色-菜单的相关方法  ==========
 
     @Override
+    public boolean hasAnyRoles(Long userId, String... roles) {
+        // 如果为空，说明已经有权限
+        if (ArrayUtil.isEmpty(roles)) {
+            return true;
+        }
+
+        // 获得当前登录的角色。如果为空，说明没有权限
+        List<RoleDO> roleList = getEnableUserRoleListByUserIdFromCache(userId);
+        if (CollUtil.isEmpty(roleList)) {
+            return false;
+        }
+
+        // 判断是否有角色
+        Set<String> userRoles = convertSet(roleList, RoleDO::getCode);
+        return CollUtil.containsAny(userRoles, Sets.newHashSet(roles));
+    }
+
+    @Override
+    public boolean hasAnyPermissions(Long userId, String... permissions) {
+        // 如果为空，说明已经有权限
+        if (ArrayUtil.isEmpty(permissions)) {
+            return true;
+        }
+
+        // 获得当前登录的角色。如果为空，说明没有权限
+        List<RoleDO> roles = getEnableUserRoleListByUserIdFromCache(userId);
+        if (CollUtil.isEmpty(roles)) {
+            return false;
+        }
+
+        // 情况一：遍历判断每个权限，如果有一满足，说明有权限
+        for (String permission : permissions) {
+            if (hasAnyPermission(roles, permission)) {
+                return true;
+            }
+        }
+
+        // 情况二：如果是超管，也说明有权限
+        return roleService.hasAnySuperAdmin(convertSet(roles, RoleDO::getId));
+    }
+
+    @Override
     public void assignRoleMenu(Long roleId, Set<Long> menuIds) {
         // 获得角色拥有菜单编号
         Set<Long> dbMenuIds = convertSet(roleMenuMapper.selectListByRoleId(roleId), RoleMenuDO::getMenuId);

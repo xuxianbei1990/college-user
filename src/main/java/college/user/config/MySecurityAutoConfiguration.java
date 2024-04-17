@@ -5,6 +5,9 @@ import college.user.handler.AccessDeniedHandlerImpl;
 import college.user.handler.AuthenticationEntryPointImpl;
 import college.user.handler.GlobalExceptionHandler;
 import college.user.service.OAuth2TokenService;
+import college.user.service.PermissionService;
+import college.user.service.SecurityFrameworkService;
+import college.user.service.SecurityFrameworkServiceImpl;
 import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
@@ -61,9 +64,13 @@ public class MySecurityAutoConfiguration {
     private OAuth2TokenService oAuth2TokenService;
 
     @Bean
-    public TokenAuthenticationFilter authenticationTokenFilter(GlobalExceptionHandler globalExceptionHandler
-    ) {
+    public TokenAuthenticationFilter authenticationTokenFilter(GlobalExceptionHandler globalExceptionHandler) {
         return new TokenAuthenticationFilter(securityProperties, globalExceptionHandler, oAuth2TokenService);
+    }
+
+    @Bean("ss") // 使用 Spring Security 的缩写，方便使用
+    public SecurityFrameworkService securityFrameworkService(PermissionService permissionApi) {
+        return new SecurityFrameworkServiceImpl(permissionApi);
     }
 
 }
