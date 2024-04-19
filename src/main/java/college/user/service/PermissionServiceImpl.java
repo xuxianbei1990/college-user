@@ -12,6 +12,8 @@ import college.user.dao.entity.UserRoleDO;
 import college.user.dao.mapper.RoleMenuMapper;
 import college.user.dao.mapper.UserRoleMapper;
 import college.user.enums.CommonStatusEnum;
+import college.user.enums.DataScopeEnum;
+import college.user.rule.dept.DeptDataPermissionRespDTO;
 import college.user.util.CollectionUtils;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Suppliers;
@@ -29,6 +31,7 @@ import java.util.*;
 import java.util.function.Supplier;
 
 import static college.user.util.CollectionUtils.convertSet;
+import static college.user.util.JsonUtils.toJsonString;
 
 
 /**
@@ -51,6 +54,13 @@ public class PermissionServiceImpl implements PermissionService {
     @Resource
     @Lazy
     private MenuService menuService;
+
+    @Resource
+    @Lazy
+    private AdminUserService userService;
+
+    @Resource
+    private DeptService deptService;
 
 
     /**
@@ -253,6 +263,63 @@ public class PermissionServiceImpl implements PermissionService {
      */
     private PermissionServiceImpl getSelf() {
         return SpringUtil.getBean(getClass());
+    }
+
+    @Override
+    @DataPermission(enable = false) // 关闭数据权限，不然就会出现递归获取数据权限的问题
+    public DeptDataPermissionRespDTO getDeptDataPermission(Long userId) {
+        // 获得用户的角色
+        List<RoleDO> roles = getEnableUserRoleListByUserIdFromCache(userId);
+
+        // 如果角色为空，则只能查看自己
+        DeptDataPermissionRespDTO result = new DeptDataPermissionRespDTO();
+        if (CollUtil.isEmpty(roles)) {
+            result.setSelf(true);
+            return result;
+        }
+
+        // 获得用户的部门编号的缓存，通过 Guava 的 Suppliers 惰性求值，即有且仅有第一次发起 DB 的查询
+        Supplier<Long> userDeptId = Suppliers.memoize(() -> userService.getUser(userId).getDeptId());
+        // 遍历每个角色，计算
+        for (RoleDO role : roles) {
+            // 为空时，跳过
+            if (role.getDataScope() == null) {
+                continue;
+            }
+            // 情况一，ALL
+            if (Objects.equals(role.getDataScope(), DataScopeEnum.ALL.getScope())) {
+                result.setAll(true);
+                continue;
+            }
+            // 情况二，DEPT_CUSTOM
+            if (Objects.equals(role.getDataScope(), DataScopeEnum.DEPT_CUSTOM.getScope())) {
+                CollUtil.addAll(result.getDeptIds(), role.getDataScopeDeptIds());
+                // 自定义可见部门时，保证可以看到自己所在的部门。否则，一些场景下可能会有问题。
+                // 例如说，登录时，基于 t_user 的 username 查询会可能被 dept_id 过滤掉
+                CollUtil.addAll(result.getDeptIds(), userDeptId.get());
+                continue;
+            }
+            // 情况三，DEPT_ONLY
+            if (Objects.equals(role.getDataScope(), DataScopeEnum.DEPT_ONLY.getScope())) {
+                CollectionUtils.addIfNotNull(result.getDeptIds(), userDeptId.get());
+                continue;
+            }
+            // 情况四，DEPT_DEPT_AND_CHILD
+            if (Objects.equals(role.getDataScope(), DataScopeEnum.DEPT_AND_CHILD.getScope())) {
+                CollUtil.addAll(result.getDeptIds(), deptService.getChildDeptIdListFromCache(userDeptId.get()));
+                // 添加本身部门编号
+                CollUtil.addAll(result.getDeptIds(), userDeptId.get());
+                continue;
+            }
+            // 情况五，SELF
+            if (Objects.equals(role.getDataScope(), DataScopeEnum.SELF.getScope())) {
+                result.setSelf(true);
+                continue;
+            }
+            // 未知情况，error log 即可
+            log.error("[getDeptDataPermission][LoginUser({}) role({}) 无法处理]", userId, toJsonString(result));
+        }
+        return result;
     }
 
 }

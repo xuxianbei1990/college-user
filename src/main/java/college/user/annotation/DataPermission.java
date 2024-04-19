@@ -2,6 +2,8 @@ package college.user.annotation;
 
 
 
+import college.user.rule.DataPermissionRule;
+
 import java.lang.annotation.*;
 
 /**

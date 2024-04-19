@@ -1,4 +1,4 @@
-package college.user.annotation;
+package college.user.rule;
 
 import com.baomidou.mybatisplus.core.metadata.TableInfoHelper;
 import net.sf.jsqlparser.expression.Alias;

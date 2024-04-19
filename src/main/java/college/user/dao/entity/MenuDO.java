@@ -1,6 +1,8 @@
 package college.user.dao.entity;
 
 
+import college.user.enums.CommonStatusEnum;
+import college.user.enums.MenuTypeEnum;
 import com.baomidou.mybatisplus.annotation.KeySequence;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;

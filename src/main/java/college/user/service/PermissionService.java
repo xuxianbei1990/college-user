@@ -1,5 +1,7 @@
 package college.user.service;
 
+import college.user.rule.dept.DeptDataPermissionRespDTO;
+
 import java.util.Collection;
 import java.util.Set;
 
@@ -127,5 +129,11 @@ public interface PermissionService {
      */
     void assignRoleDataScope(Long roleId, Integer dataScope, Set<Long> dataScopeDeptIds);
 
-
+    /**
+     * 获得登陆用户的部门数据权限
+     *
+     * @param userId 用户编号
+     * @return 部门数据权限
+     */
+    DeptDataPermissionRespDTO getDeptDataPermission(Long userId);
 }
