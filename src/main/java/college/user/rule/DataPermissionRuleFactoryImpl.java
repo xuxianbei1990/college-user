@@ -2,11 +2,9 @@ package college.user.rule;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ArrayUtil;
-
 import college.user.annotation.DataPermission;
-import college.user.annotation.DataPermissionContextHolder;
+import college.user.aop.DataPermissionContextHolder;
 import lombok.RequiredArgsConstructor;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;

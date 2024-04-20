@@ -190,6 +190,12 @@ public class PermissionServiceImpl implements PermissionService {
         return convertSet(roleMenuMapper.selectListByMenuId(menuId), RoleMenuDO::getRoleId);
     }
 
+
+    @Override
+    public Set<Long> getUserRoleIdListByRoleId(Collection<Long> roleIds) {
+        return convertSet(userRoleMapper.selectListByRoleIds(roleIds), UserRoleDO::getUserId);
+    }
+
     // ========== 用户-角色的相关方法  ==========
 
     @Override

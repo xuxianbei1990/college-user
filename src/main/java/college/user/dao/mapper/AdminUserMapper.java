@@ -11,6 +11,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.Collection;
+import java.util.List;
 
 @Mapper
 public interface AdminUserMapper extends BaseMapper<AdminUserDO> {
@@ -42,5 +43,7 @@ public interface AdminUserMapper extends BaseMapper<AdminUserDO> {
     }
 
 
-
+    default List<AdminUserDO> selectListByDeptIds(Collection<Long> deptIds) {
+        return selectList(Wrappers.lambdaQuery(AdminUserDO.class).in(AdminUserDO::getDeptId, deptIds));
+    }
 }

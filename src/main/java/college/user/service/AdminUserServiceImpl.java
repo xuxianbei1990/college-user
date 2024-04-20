@@ -148,6 +148,13 @@ public class AdminUserServiceImpl implements AdminUserService {
     }
 
     @Override
+    public List<AdminUserDO> getUserListByDeptIds(Collection<Long> deptIds) {
+        if (CollUtil.isEmpty(deptIds)) {
+            return Collections.emptyList();
+        }
+        return userMapper.selectListByDeptIds(deptIds);
+    }
+    @Override
     public void updateUserStatus(Long id, Integer status) {
         // 校验用户存在
         validateUserExists(id);
@@ -186,6 +193,27 @@ public class AdminUserServiceImpl implements AdminUserService {
     public AdminUserDO getUser(Long id) {
         return userMapper.selectById(id);
     }
+
+    @Override
+    public void validateUserList(Collection<Long> ids) {
+        if (CollUtil.isEmpty(ids)) {
+            return;
+        }
+        // 获得岗位信息
+        List<AdminUserDO> users = userMapper.selectBatchIds(ids);
+        Map<Long, AdminUserDO> userMap = CollectionUtils.convertMap(users, AdminUserDO::getId);
+        // 校验
+        ids.forEach(id -> {
+            AdminUserDO user = userMap.get(id);
+            if (user == null) {
+                throw exception(USER_NOT_EXISTS);
+            }
+            if (!CommonStatusEnum.ENABLE.getStatus().equals(user.getStatus())) {
+                throw exception(USER_IS_DISABLE, user.getNickname());
+            }
+        });
+    }
+
 
     /**
      * 获得部门条件：查询指定部门的子部门编号们，包括自身

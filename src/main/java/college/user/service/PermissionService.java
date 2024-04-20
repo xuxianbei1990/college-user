@@ -17,6 +17,14 @@ import static java.util.Collections.singleton;
 public interface PermissionService {
 
     /**
+     * 获得拥有多个角色的用户编号集合
+     *
+     * @param roleIds 角色编号集合
+     * @return 用户编号集合
+     */
+    Set<Long> getUserRoleIdListByRoleId(Collection<Long> roleIds);
+
+    /**
      * 判断是否有权限，任一一个即可
      *
      * @param userId      用户编号

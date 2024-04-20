@@ -1,3 +1,4 @@
 college.user.config.MySecurityAutoConfiguration
 college.user.config.MyWebSecurityConfigurerAdapter
 college.user.config.MyDataPermissionAutoConfiguration
+college.user.config.MyDeptDataPermissionAutoConfiguration

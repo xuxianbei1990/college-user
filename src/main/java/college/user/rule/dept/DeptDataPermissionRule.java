@@ -7,6 +7,7 @@ import cn.hutool.core.util.StrUtil;
 import college.user.dao.entity.BaseDO;
 import college.user.enums.UserTypeEnum;
 import college.user.rule.DataPermissionRule;
+import college.user.service.PermissionApi;
 import college.user.service.PermissionService;
 import college.user.util.*;
 import com.baomidou.mybatisplus.core.metadata.TableInfoHelper;
@@ -54,7 +55,7 @@ public class DeptDataPermissionRule implements DataPermissionRule {
 
     static final Expression EXPRESSION_NULL = new NullValue();
 
-    private final PermissionService permissionApi;
+    private final PermissionApi permissionApi;
 
     /**
      * 基于部门的表字段配置
@@ -98,7 +99,7 @@ public class DeptDataPermissionRule implements DataPermissionRule {
         DeptDataPermissionRespDTO deptDataPermission = loginUser.getContext(CONTEXT_KEY, DeptDataPermissionRespDTO.class);
         // 从上下文中拿不到，则调用逻辑进行获取
         if (deptDataPermission == null) {
-            deptDataPermission = permissionApi.getDeptDataPermission(loginUser.getId());
+            deptDataPermission = permissionApi.getDeptDataPermission(loginUser.getId()).getData();
             if (deptDataPermission == null) {
                 log.error("[getExpression][LoginUser({}) 获取数据权限为 null]", JsonUtils.toJsonString(loginUser));
                 throw new NullPointerException(String.format("LoginUser(%d) Table(%s/%s) 未返回数据权限",

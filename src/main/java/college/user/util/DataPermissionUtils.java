@@ -2,7 +2,8 @@ package college.user.util;
 
 
 import college.user.annotation.DataPermission;
-import college.user.annotation.DataPermissionContextHolder;
+
+import college.user.aop.DataPermissionContextHolder;
 import lombok.SneakyThrows;
 
 /**

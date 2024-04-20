@@ -6,6 +6,9 @@ import college.user.dao.entity.AdminUserDO;
 import college.user.vo.PageResult;
 import jakarta.validation.Valid;
 
+import java.util.Collection;
+import java.util.List;
+
 /**
  * 后台用户 Service 接口
  *
@@ -54,6 +57,14 @@ public interface AdminUserService {
     void updateUserStatus(Long id, Integer status);
 
     /**
+     * 获得指定部门的用户数组
+     *
+     * @param deptIds 部门数组
+     * @return 用户数组
+     */
+    List<AdminUserDO> getUserListByDeptIds(Collection<Long> deptIds);
+
+    /**
      * 删除用户
      *
      * @param id 用户编号
@@ -96,4 +107,5 @@ public interface AdminUserService {
      */
     boolean isPasswordMatch(String rawPassword, String encodedPassword);
 
+    void validateUserList(Collection<Long> ids);
 }

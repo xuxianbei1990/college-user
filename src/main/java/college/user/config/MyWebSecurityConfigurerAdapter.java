@@ -93,29 +93,30 @@ public class MyWebSecurityConfigurerAdapter {
                 // 一堆自定义的 Spring Security 处理器
                 .exceptionHandling(c -> c.authenticationEntryPoint(authenticationEntryPoint)
                         .accessDeniedHandler(accessDeniedHandler));
+        httpSecurity.authorizeHttpRequests(c -> c.anyRequest().permitAll());
 
         // 获得 @PermitAll 带来的 URL 列表，免登录
-        Multimap<HttpMethod, String> permitAllUrls = getPermitAllUrlsFromAnnotations();
-        httpSecurity
-                // ①：全局共享规则
-                .authorizeHttpRequests(c -> c
-                        // 1.1 静态资源，可匿名访问
-                        .requestMatchers(HttpMethod.GET, "/*.html", "/*.html", "/*.css", "/*.js").permitAll()
-                        // 1.1 设置 @PermitAll 无需认证
-                        .requestMatchers(HttpMethod.GET, permitAllUrls.get(HttpMethod.GET).toArray(new String[0])).permitAll()
-                        .requestMatchers(HttpMethod.POST, permitAllUrls.get(HttpMethod.POST).toArray(new String[0])).permitAll()
-                        .requestMatchers(HttpMethod.PUT, permitAllUrls.get(HttpMethod.PUT).toArray(new String[0])).permitAll()
-                        .requestMatchers(HttpMethod.DELETE, permitAllUrls.get(HttpMethod.DELETE).toArray(new String[0])).permitAll()
-                        .requestMatchers(HttpMethod.HEAD, permitAllUrls.get(HttpMethod.HEAD).toArray(new String[0])).permitAll()
-                        .requestMatchers(HttpMethod.PATCH, permitAllUrls.get(HttpMethod.PATCH).toArray(new String[0])).permitAll()
-                        // 1.2 基于 yudao.security.permit-all-urls 无需认证
-//                        .requestMatchers(securityProperties.getPermitAllUrls().toArray(new String[0])).permitAll()
-                )
-                // ②：每个项目的自定义规则
-//                .authorizeHttpRequests(c -> authorizeRequestsCustomizers.forEach(customizer -> customizer.customize(c)))
-                // ③：兜底规则，必须认证
-                .authorizeHttpRequests(c -> c.anyRequest().authenticated());
-        httpSecurity.addFilterBefore(authenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
+//        Multimap<HttpMethod, String> permitAllUrls = getPermitAllUrlsFromAnnotations();
+//        httpSecurity
+//                // ①：全局共享规则
+//                .authorizeHttpRequests(c -> c
+//                        // 1.1 静态资源，可匿名访问
+//                        .requestMatchers(HttpMethod.GET, "/*.html", "/*.html", "/*.css", "/*.js").permitAll()
+//                        // 1.1 设置 @PermitAll 无需认证
+//                        .requestMatchers(HttpMethod.GET, permitAllUrls.get(HttpMethod.GET).toArray(new String[0])).permitAll()
+//                        .requestMatchers(HttpMethod.POST, permitAllUrls.get(HttpMethod.POST).toArray(new String[0])).permitAll()
+//                        .requestMatchers(HttpMethod.PUT, permitAllUrls.get(HttpMethod.PUT).toArray(new String[0])).permitAll()
+//                        .requestMatchers(HttpMethod.DELETE, permitAllUrls.get(HttpMethod.DELETE).toArray(new String[0])).permitAll()
+//                        .requestMatchers(HttpMethod.HEAD, permitAllUrls.get(HttpMethod.HEAD).toArray(new String[0])).permitAll()
+//                        .requestMatchers(HttpMethod.PATCH, permitAllUrls.get(HttpMethod.PATCH).toArray(new String[0])).permitAll()
+//                        // 1.2 基于 yudao.security.permit-all-urls 无需认证
+////                        .requestMatchers(securityProperties.getPermitAllUrls().toArray(new String[0])).permitAll()
+//                )
+//                // ②：每个项目的自定义规则
+////                .authorizeHttpRequests(c -> authorizeRequestsCustomizers.forEach(customizer -> customizer.customize(c)))
+//                // ③：兜底规则，必须认证
+//                .authorizeHttpRequests(c -> c.anyRequest().authenticated());
+//        httpSecurity.addFilterBefore(authenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
         return httpSecurity.build();
     }
 
