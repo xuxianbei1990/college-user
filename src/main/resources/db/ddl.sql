@@ -202,6 +202,19 @@ CREATE TABLE `system_user_role` (
                                     PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='用户和角色关联表';
 
+CREATE TABLE `crm_permission` (
+                                  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+
+                                  `user_id` bigint NOT NULL DEFAULT '0' COMMENT '用户编号',
+
+                                  `biz_type` tinyint NOT NULL DEFAULT '100' COMMENT '数据类型',
+                                  `biz_id` bigint NOT NULL DEFAULT '0' COMMENT '数据编号',
+
+                                  `level` int NOT NULL DEFAULT '0' COMMENT '会员等级',
+                                  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='CRM 数据权限表';
+
+
 INSERT INTO `system_users`(`id`, `username`, `password`, `nickname`, `remark`, `dept_id`, `post_ids`, `email`, `mobile`,
                            `sex`, `avatar`, `status`, `login_ip`, `login_date`, `creator`, `create_time`, `updater`,
                            `update_time`, `deleted`, `tenant_id`) VALUES (1, 'admin', '$2a$10$mRMIYLDtRHlf6.9ipiqH1.Z.bh/R9dO9d5iHiGYPigi6r5KOoR2Wm',

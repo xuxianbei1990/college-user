@@ -21,12 +21,23 @@ import java.util.List;
 @AutoConfiguration
 public class MyDataPermissionAutoConfiguration {
 
+    /**
+     * 拦截的规则
+     * @param rules
+     * @return
+     */
     @Bean
     public DataPermissionRuleFactory dataPermissionRuleFactory(List<DataPermissionRule> rules) {
         return new DataPermissionRuleFactoryImpl(rules);
     }
 
 
+    /**
+     * 实现了数据层面的数据拦截
+     * @param interceptor
+     * @param ruleFactory
+     * @return
+     */
     @Bean
     public DataPermissionDatabaseInterceptor dataPermissionDatabaseInterceptor(MybatisPlusInterceptor interceptor,
                                                                                DataPermissionRuleFactory ruleFactory) {
@@ -38,6 +49,10 @@ public class MyDataPermissionAutoConfiguration {
         return inner;
     }
 
+    /**
+     * 实现了所有的类和方法的注解拦截
+     * @return
+     */
     @Bean
     public DataPermissionAnnotationAdvisor dataPermissionAnnotationAdvisor() {
         return new DataPermissionAnnotationAdvisor();

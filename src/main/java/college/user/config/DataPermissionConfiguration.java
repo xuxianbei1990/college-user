@@ -22,8 +22,11 @@ public class DataPermissionConfiguration {
             // dept
             rule.addDeptColumn(AdminUserDO.class);
             rule.addDeptColumn(DeptDO.class, "id");
+            // 需要实现部门的表
+            rule.addDeptColumn(DataPermissionUserDO.class);
             // user
             rule.addUserColumn(AdminUserDO.class, "id");
+            // 需要实现用户的表
             rule.addUserColumn(DataPermissionUserDO.class);
         };
     }

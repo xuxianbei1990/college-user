@@ -65,6 +65,14 @@ public interface AdminUserService {
     List<AdminUserDO> getUserListByDeptIds(Collection<Long> deptIds);
 
     /**
+     * 获得用户列表
+     *
+     * @param ids 用户编号数组
+     * @return 用户列表
+     */
+    List<AdminUserDO> getUserList(Collection<Long> ids);
+
+    /**
      * 删除用户
      *
      * @param id 用户编号

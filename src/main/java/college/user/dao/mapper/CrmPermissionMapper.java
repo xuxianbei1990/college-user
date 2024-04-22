@@ -35,6 +35,7 @@ public interface CrmPermissionMapper extends BaseMapper<CrmPermissionDO> {
                 .eq(CrmPermissionDO::getBizType, bizType)
                 .in(CrmPermissionDO::getBizId, bizIds));
     }
+
     default List<CrmPermissionDO> selectListByBizTypeAndUserId(Integer bizType, Long userId) {
         return selectList(Wrappers.<CrmPermissionDO>lambdaQuery()
                 .eq(CrmPermissionDO::getBizType, bizType)
@@ -64,7 +65,10 @@ public interface CrmPermissionMapper extends BaseMapper<CrmPermissionDO> {
 
     default Long selectListByBiz(Collection<Integer> bizTypes, Collection<Long> bizIds, Collection<Long> userIds) {
         return selectCount(Wrappers.<CrmPermissionDO>lambdaQuery().in(CrmPermissionDO::getBizType, bizTypes)
-               .in(CrmPermissionDO::getBizId, bizIds).in(CrmPermissionDO::getUserId, userIds));
+                .in(CrmPermissionDO::getBizId, bizIds).in(CrmPermissionDO::getUserId, userIds));
     }
 
+    default void updateBatch(List<CrmPermissionDO> updateList) {
+        updateList.forEach(this::updateById);
+    }
 }

@@ -1,10 +1,8 @@
 package college.user.dto;
 
-
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-
 import java.io.Serializable;
 import java.util.List;
 

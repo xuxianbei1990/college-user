@@ -13,7 +13,7 @@ import org.springframework.aop.support.annotation.AnnotationMatchingPointcut;
 /**
  * {@link DataPermission} 注解的 Advisor 实现类
  *
- * @author 芋道源码
+// * @author 芋道源码
  */
 @Getter
 @EqualsAndHashCode(callSuper = true)
@@ -29,6 +29,10 @@ public class DataPermissionAnnotationAdvisor extends AbstractPointcutAdvisor {
     }
 
     protected Pointcut buildPointcut() {
+        /**
+         * 定义类上的拦截注解
+         * 定义方法上的拦截注解
+         */
         Pointcut classPointcut = new AnnotationMatchingPointcut(DataPermission.class, true);
         Pointcut methodPointcut = new AnnotationMatchingPointcut(null, DataPermission.class, true);
         return new ComposablePointcut(classPointcut).union(methodPointcut);

@@ -45,6 +45,13 @@
 		</dependency>
 
 		<dependency>
+			<groupId>jakarta.validation</groupId>
+			<artifactId>jakarta.validation-api</artifactId>
+			<scope>provided</scope>
+<!--			<version>2.0.2</version>&lt;!&ndash; 设置为 provided，主要是 PageParam 使用到 &ndash;&gt;-->
+		</dependency>
+
+		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
 			<version>${guava.version}</version>

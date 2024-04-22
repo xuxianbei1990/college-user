@@ -10,10 +10,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Tag(name = "RPC 服务 - 管理员用户")
 public interface AdminUserApi  {
@@ -29,5 +26,13 @@ public interface AdminUserApi  {
     CommonResult<Boolean> validateUserList(@RequestParam("ids") Collection<Long> ids);
 
 
+    @Operation(summary = "通过用户 ID 查询用户们")
+    @Parameter(name = "ids", description = "部门编号数组", example = "1,2", required = true)
+    CommonResult<List<AdminUserRespDTO>> getUserList(@RequestParam("ids") Collection<Long> ids);
 
+
+    default Map<Long, AdminUserRespDTO> getUserMap(Collection<Long> ids) {
+        List<AdminUserRespDTO> users = getUserList(ids).getCheckedData();
+        return CollectionUtils.convertMap(users, AdminUserRespDTO::getId);
+    }
 }
