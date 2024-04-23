@@ -70,5 +70,10 @@ public class AdminUserApiImpl implements AdminUserApi {
         return success(BeanUtils.toBean(users, AdminUserRespDTO.class));
     }
 
+    @Override
+    public CommonResult<AdminUserRespDTO> getUser(Long id) {
+        AdminUserDO user = userService.getUser(id);
+        return success(BeanUtils.toBean(user, AdminUserRespDTO.class));
+    }
 
 }

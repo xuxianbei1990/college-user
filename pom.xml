@@ -22,6 +22,7 @@
 		<org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
 		<guava.version>33.0.0-jre</guava.version>
 		<druid.version>1.2.21</druid.version>
+		<bizlog-sdk.version>3.0.6</bizlog-sdk.version>
 		<maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
 	</properties>
 	<dependencies>
@@ -51,6 +52,18 @@
 <!--			<version>2.0.2</version>&lt;!&ndash; 设置为 provided，主要是 PageParam 使用到 &ndash;&gt;-->
 		</dependency>
 
+		<!-- 业务组件 -->
+		<dependency>
+			<groupId>io.github.mouzt</groupId>
+			<artifactId>bizlog-sdk</artifactId>
+			<version>${bizlog-sdk.version}</version>
+			<exclusions>
+				<exclusion> <!-- 排除掉springboot依赖使用项目的 -->
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>

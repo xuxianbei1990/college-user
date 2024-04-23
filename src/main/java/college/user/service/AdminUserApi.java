@@ -30,6 +30,10 @@ public interface AdminUserApi  {
     @Parameter(name = "ids", description = "部门编号数组", example = "1,2", required = true)
     CommonResult<List<AdminUserRespDTO>> getUserList(@RequestParam("ids") Collection<Long> ids);
 
+    @Operation(summary = "通过用户 ID 查询用户")
+    @Parameter(name = "id", description = "用户编号", example = "1", required = true)
+    CommonResult<AdminUserRespDTO> getUser(@RequestParam("id") Long id);
+
 
     default Map<Long, AdminUserRespDTO> getUserMap(Collection<Long> ids) {
         List<AdminUserRespDTO> users = getUserList(ids).getCheckedData();
