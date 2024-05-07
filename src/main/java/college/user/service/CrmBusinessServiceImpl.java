@@ -95,9 +95,7 @@ public class CrmBusinessServiceImpl implements CrmBusinessService {
 
     @Override
     public PageResult<CrmBusinessDO> getBusinessPage(CrmBusinessPageReqVO pageReqVO, Long userId) {
-        IPage<CrmBusinessDO> iPage = new Page<>(pageReqVO.getPageNo(), pageReqVO.getPageSize());
-        businessMapper.selectPage(iPage, Wrappers.lambdaQuery(CrmBusinessDO.class).eq(CrmBusinessDO::getId, userId));
-        return new PageResult<>(iPage.getRecords(), iPage.getTotal());
+        return businessMapper.selectPage(pageReqVO, userId);
     }
 
     private void validateRelationDataExists(CrmBusinessSaveReqVO saveReqVO) {
